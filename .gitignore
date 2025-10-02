@@ -1,0 +1,10 @@
+# Terraform
+.terraform.lock.hcl
+terraform.tfstate
+terraform.tfstate.backup
+
+# Python
+__pycache__/
+*.pyc
+*.zip
+package/
