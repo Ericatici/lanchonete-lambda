@@ -6,6 +6,10 @@ on:
       - main # or 'master', 'develop', etc.
     paths:
       - 'lanchonete-lambda/**' # Trigger only when changes are in the lanchonete-lambda directory
+  pull_request:
+    branches: ["main"]
+    paths:
+      - "lanchonete-lambda/**"   
 
 env:
   AWS_REGION: us-east-2 # Ensure this matches your RDS region
