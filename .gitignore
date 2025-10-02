@@ -1,10 +1,20 @@
 # Terraform
+.terraform/
+*.tfstate
+*.tfstate.*
 .terraform.lock.hcl
-terraform.tfstate
 terraform.tfstate.backup
 
 # Python
 __pycache__/
 *.pyc
+*.pyo
+*.pyd
 *.zip
-package/
+*.egg-info
+dist/
+build/
+
+# AWS Lambda
+*.log
+*.tmp
