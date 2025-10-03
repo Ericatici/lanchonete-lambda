@@ -2,6 +2,17 @@ provider "aws" {
   region = "us-east-2" # This should match the region of your RDS instance
 }
 
+terraform {
+  backend "s3" {
+    bucket         = "lanchonete-terraform-state-20251003"  # Crie este bucket na AWS
+    key            = "lambdas/lanchonete-lambda.tfstate"
+    region         = "us-east-2"
+    dynamodb_table = "lanchonete-terraform-lock"   # Crie esta tabela na AWS
+    encrypt        = true
+  }
+}
+
+
 resource "aws_iam_role" "lambda_exec_role" {
   name = "lanchonete-cpf-verifier-lambda-role"
 
@@ -154,7 +165,7 @@ resource "aws_api_gateway_stage" "dev_stage" {
 }
 
 output "api_gateway_invoke_url" {
-  value       = "${aws_api_gateway_rest_api.lanchonete_api.execution_arn}/${aws_api_gateway_stage.dev_stage.stage_name}/login/cpf"
+  value       = "https://${aws_api_gateway_rest_api.lanchonete_api.id}.execute-api.us-east-2.amazonaws.com/${aws_api_gateway_stage.dev_stage.stage_name}/login/cpf"
   description = "The invoke URL for the API Gateway"
 }
 

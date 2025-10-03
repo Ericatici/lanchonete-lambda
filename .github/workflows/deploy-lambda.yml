@@ -4,13 +4,11 @@ on:
   push:
     branches:
       - main # or 'master', 'develop', etc.
-    paths:
-      - 'lanchonete-lambda/**' # Trigger only when changes are in the lanchonete-lambda directory
+  
   pull_request:
     branches: ["main"]
-    paths:
-      - "lanchonete-lambda/**"   
-
+    
+          
 env:
   AWS_REGION: us-east-2 # Ensure this matches your RDS region
 
@@ -37,7 +35,6 @@ jobs:
     - name: Install Python dependencies and package Lambda
       run: |
         python -m pip install --upgrade pip
-        cd lanchonete-lambda
         rm -rf lambda_function.zip package || true # Clean up previous builds
         mkdir package
         pip install -r requirements.txt -t package/
@@ -54,6 +51,5 @@ jobs:
 
     - name: Terraform Init and Apply
       run: |
-        cd lanchonete-lambda
         terraform init
         terraform apply -auto-approve
